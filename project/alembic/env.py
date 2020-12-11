@@ -1,3 +1,4 @@
+from project.models import BaseModel, IntEnum
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
@@ -16,9 +17,8 @@ fileConfig(config.config_file_name)
 # add your model's MetaData object here
 # for 'autogenerate' support
 
-from ..models import BaseModel
 
-target_metadata = BaseModel.metadata
+target_metadata = [BaseModel.metadata]
 
 
 def run_migrations_offline():
