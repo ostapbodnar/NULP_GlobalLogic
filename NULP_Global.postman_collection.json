@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "fdcd43d2-3146-4413-abfb-b44f5ff57abb",
+		"name": "NULP_Global",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:5000/board",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/board",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"board"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/board/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/place",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"place"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/advertisement",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"More lollipops\",\n    \"description\":\"Want a lollipop!!!\",\n    \"quantity\":3,\n    \"status\":1,\n    \"tag\":1,\n    \"owner_id\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/advertisement",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"advertisement"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/advertisement/1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/advertisement/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"advertisement",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/advertisement/2",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"quantity\":20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/advertisement/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"advertisement",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/advertisement/3",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/advertisement/3",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"advertisement",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_name\":\"ostap_bodnar\",\n    \"first_name\":\"Ostap\",\n    \"last_name\":\"Bodnar\",\n    \"email\":\"ostap@test.com\",\n    \"password\":\"password\",\n    \"phone\":\"380775674592\",\n    \"place_id\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user"
+					]
+				},
+				"description": "Add user "
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/user/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_name\":\"Ostap_Bodnar\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/user/2",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/user/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_name\":\"Ostap_Bodnar\",\n    \"password\":\"passwoyrd\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/place",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/api/assignment/specification",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"assignment",
+						"specification"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/place",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Lviv\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/place",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"place"
+					]
+				},
+				"description": "Adding new place"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/place/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/place/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"place",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/place/2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/place/2",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"place",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:5000/place/1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"LVIV\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/place/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"place",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
