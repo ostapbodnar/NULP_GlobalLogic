@@ -1,5 +1,5 @@
 from .models import User, Advertisment, Place
-from project import session
+from . import session
 
 place1 = Place(id=1, name="Lviv")
 place2 = Place(id=2, name="Rozvadiv")
