@@ -13,11 +13,8 @@ def get_or_404(cls, pk):
 
 @auth.verify_password
 def verify_password(email, password):
-    print('rere')
     user = session.query(User).filter(User.email == email).first()
-    print(user)
     if user is None:
-        print('sesds')
         return False
     return bcrypt.check_password_hash(user.password, password)
     # return jsonify({'message': "Invalid user login"}), 400
@@ -51,13 +48,18 @@ def advertisement_add():
 @app.route("/advertisement/<int:pk>", methods=['GET'])
 @auth.login_required()
 def get_advertisement(pk):
+    email = auth.current_user()
+    user = session.query(User).filter(User.email == email).first()
+    user_id = user.id
     try:
         pk = int(pk)
     except ValueError:
         return jsonify({'message': "Invalid ID supplied"}, 400)
 
     try:
-        advertisement = get_or_404(Advertisement, pk)
+        advertisement = session.query(Advertisement).get(pk)
+        if advertisement.owner_id != user_id:
+            raise Exception
     except Exception:
         return jsonify({'message': "Advertisement not found"}, 404)
 
@@ -67,6 +69,9 @@ def get_advertisement(pk):
 @app.route("/advertisement/<int:pk>", methods=['PUT'])
 @auth.login_required()
 def update_advertisement(pk):
+    email = auth.current_user()
+    user = session.query(User).filter(User.email == email).first()
+    user_id = user.id
     data = request.get_json()
     try:
         pk = int(pk)
@@ -74,7 +79,9 @@ def update_advertisement(pk):
         return "Invalid ID supplied", 400
 
     try:
-        advertisement = get_or_404(Advertisement, pk)
+        advertisement = session.query(Advertisement).get(pk)
+        if advertisement.owner_id != user_id:
+            raise Exception
     except Exception:
         return jsonify({'message': "Advertisement not found"}, 404)
 
@@ -87,13 +94,18 @@ def update_advertisement(pk):
 @app.route("/advertisement/<int:pk>", methods=['DELETE'])
 @auth.login_required()
 def delete_advertisement(pk):
+    email = auth.current_user()
+    user = session.query(User).filter(User.email == email).first()
+    user_id = user.id
     try:
         pk = int(pk)
     except ValueError:
         return "Invalid ID supplied", 400
 
     try:
-        advertisement = get_or_404(Advertisement, pk)
+        advertisement = session.query(Advertisement).get(pk)
+        if advertisement.owner_id != user_id:
+            raise Exception
     except Exception:
         return jsonify({'message': "Advertisement not found"}, 404)
 
