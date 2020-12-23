@@ -1,7 +1,7 @@
 from flask import request, jsonify
 from marshmallow.utils import EXCLUDE
 from .models import Advertisement, PlaceSchema, Place, User, AdvertisementSchema, UserSchema, Tag, Status
-from project import session, app, bcrypt
+from project import session, app, bcrypt, auth
 
 
 def get_or_404(cls, pk):
@@ -10,10 +10,24 @@ def get_or_404(cls, pk):
         raise Exception
     return obj
 
+
+@auth.verify_password
+def verify_password(email, password):
+    print('rere')
+    user = session.query(User).filter(User.email == email).first()
+    print(user)
+    if user is None:
+        print('sesds')
+        return False
+    return bcrypt.check_password_hash(user.password, password)
+    # return jsonify({'message': "Invalid user login"}), 400
+
+
 # advertisement roures
 
 
 @app.route("/advertisement", methods=['POST'])
+@auth.login_required()
 def advertisement_add():
     data = request.get_json()
 
@@ -35,6 +49,7 @@ def advertisement_add():
 
 
 @app.route("/advertisement/<int:pk>", methods=['GET'])
+@auth.login_required()
 def get_advertisement(pk):
     try:
         pk = int(pk)
@@ -50,6 +65,7 @@ def get_advertisement(pk):
 
 
 @app.route("/advertisement/<int:pk>", methods=['PUT'])
+@auth.login_required()
 def update_advertisement(pk):
     data = request.get_json()
     try:
@@ -69,6 +85,7 @@ def update_advertisement(pk):
 
 
 @app.route("/advertisement/<int:pk>", methods=['DELETE'])
+@auth.login_required()
 def delete_advertisement(pk):
     try:
         pk = int(pk)
@@ -84,25 +101,29 @@ def delete_advertisement(pk):
     session.commit()
     return jsonify({'message': "Success"}, 200)
 
+
 # board
 
 
 @app.route("/board", methods=["GET"])
 def board():
-
     global_advetrisement = session.query(Advertisement).filter(
         Advertisement.tag == Tag.Global.name).order_by(Advertisement.createdate.desc()).all()
 
     return jsonify(AdvertisementSchema(many=True).dump(global_advetrisement))
 
 
-@app.route("/board/<int:pk>", methods=["GET"])
-def board_place(pk):
-    # .filter(
-    # User.place_id == pk)
-    local_advetrisement = session.query(Advertisement).filter(
-        Advertisement.tag == Tag.Local.name).filter(
-        User.place_id == pk).order_by(Advertisement.createdate.desc()).all()
+@app.route("/board/place/", methods=["GET"])
+@auth.login_required()
+def board_place():
+    email = auth.current_user()
+    user = session.query(User).filter(User.email == email).first()
+    pk = user.place_id
+
+    local_advetrisement = session.query(Advertisement) \
+        .filter(Advertisement.tag == Tag.Local.name) \
+        .filter(Advertisement.owner.has(place_id=pk)) \
+        .order_by(Advertisement.createdate.desc())
 
     return jsonify(AdvertisementSchema(many=True).dump(local_advetrisement))
 
@@ -126,7 +147,6 @@ def place_add():
 
 @app.route("/place/<int:pk>", methods=["GET"])
 def place_get(pk):
-
     try:
         place = get_or_404(Place, pk)
     except Exception:
@@ -137,7 +157,6 @@ def place_get(pk):
 
 @app.route("/place", methods=["GET"])
 def place_get_all():
-
     places = session.query(Place).all()
 
     return jsonify(PlaceSchema(many=True).dump(places))
@@ -178,6 +197,7 @@ def place_delete(pk):
     session.commit()
     return jsonify({'message': "Success"}, 200)
 
+
 # user
 
 
@@ -205,25 +225,30 @@ def user_add():
 def user_login():
     data = request.get_json()
     try:
-        user_name = data['user_name']
+        email = data['email']
         password = str(data['password'])
     except Exception:
         return jsonify({'message': "Invalid input"}, 405)
 
-    user = session.query(User).filter(User.user_name == user_name).first()
+    user = session.query(User).filter(User.email == email).first()
     login_success = bcrypt.check_password_hash(user.password, password)
-
-    return jsonify({'login_status': login_success}, 200)
+    if login_success:
+        return jsonify({'username': email, 'password': password}), 200
+    return jsonify({'message': 'Bad login!'}, 400)
 
 
 @app.route("/user/logout", methods=["GET"])
+@auth.login_required()
 def user_logout():
-
     return jsonify({'message': "Success"}, 200)
 
 
-@app.route("/user/<int:pk>", methods=['GET'])
-def get_user(pk):
+@app.route("/user/", methods=['GET'])
+@auth.login_required()
+def get_user():
+    email = auth.current_user()
+    user = session.query(User).filter(User.email == email).first()
+    pk = user.id
     try:
         pk = int(pk)
     except ValueError:
@@ -237,8 +262,12 @@ def get_user(pk):
     return UserSchema().dump(user)
 
 
-@app.route("/user/<int:pk>", methods=['PUT'])
-def update_user(pk):
+@app.route("/user/", methods=['PUT'])
+@auth.login_required
+def update_user():
+    email = auth.current_user()
+    user = session.query(User).filter(User.email == email).first()
+    pk = user.id
     data = request.get_json()
     if "password" in data:
         data["password"] = bcrypt.generate_password_hash(
@@ -259,8 +288,12 @@ def update_user(pk):
     return jsonify({'message': "Success"}, 200)
 
 
-@app.route("/user/<int:pk>", methods=['DELETE'])
-def delete_user(pk):
+@app.route("/user/", methods=['DELETE'])
+@auth.login_required()
+def delete_user():
+    email = auth.current_user()
+    user = session.query(User).filter(User.email == email).first()
+    pk = user.id
     try:
         pk = int(pk)
     except ValueError:

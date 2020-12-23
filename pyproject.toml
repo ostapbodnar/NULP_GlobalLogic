@@ -12,6 +12,7 @@ alembic = "^1.4.3"
 psycopg2 = "^2.8.6"
 marshmallow-enum = "^1.5.1"
 Flask-Bcrypt = "^0.7.1"
+Flask-HTTPAuth = "^4.2.0"
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.6.0"
