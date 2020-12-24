@@ -100,6 +100,17 @@ bcrypt = "*"
 Flask = "*"
 
 [[package]]
+name = "flask-httpauth"
+version = "4.2.0"
+description = "Basic and Digest HTTP authentication for Flask routes"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Flask = "*"
+
+[[package]]
 name = "isort"
 version = "5.6.4"
 description = "A Python utility / library to sort Python imports."
@@ -307,7 +318,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "36e9653a99e2e4a9025d866a193c456bfaba5463666e347d6e85a8adb58af58a"
+content-hash = "b37489ea6443a66dec283cdbfc3f3f56d4ad87037e3ab3a7a2f86f8a162d5c28"
 
 [metadata.files]
 alembic = [
@@ -379,6 +390,10 @@ flask = [
 ]
 flask-bcrypt = [
     {file = "Flask-Bcrypt-0.7.1.tar.gz", hash = "sha256:d71c8585b2ee1c62024392ebdbc447438564e2c8c02b4e57b56a4cafd8d13c5f"},
+]
+flask-httpauth = [
+    {file = "Flask-HTTPAuth-4.2.0.tar.gz", hash = "sha256:8c7e49e53ce7dc14e66fe39b9334e4b7ceb8d0b99a6ba1c3562bb528ef9da84a"},
+    {file = "Flask_HTTPAuth-4.2.0-py2.py3-none-any.whl", hash = "sha256:3fcedb99a03985915335a38c35bfee6765cbd66d7f46440fa3b42ae94a90fac7"},
 ]
 isort = [
     {file = "isort-5.6.4-py3-none-any.whl", hash = "sha256:dcab1d98b469a12a1a624ead220584391648790275560e1a43e54c5dceae65e7"},
