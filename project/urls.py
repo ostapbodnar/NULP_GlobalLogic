@@ -34,15 +34,15 @@ def advertisement_add():
 
         advertisement.owner = get_or_404(User, int(data['owner_id']))
     except Exception:
-        return jsonify({'message': "Invalid ID supplied"}, 400)
+        return jsonify({'message': "Invalid ID supplied"}), 400
 
     try:
         session.add(advertisement)
         session.commit()
     except Exception:
-        return jsonify({'message': "Commitment to db was fieled"}, 405)
+        return jsonify({'message': "Commitment to db was fieled"}), 405
 
-    return jsonify({'message': "Success"}, 200)
+    return jsonify({'message': "Success"}), 200
 
 
 @app.route("/advertisement/<int:pk>", methods=['GET'])
@@ -54,14 +54,14 @@ def get_advertisement(pk):
     try:
         pk = int(pk)
     except ValueError:
-        return jsonify({'message': "Invalid ID supplied"}, 400)
+        return jsonify({'message': "Invalid ID supplied"}), 400
 
     try:
         advertisement = session.query(Advertisement).get(pk)
         if advertisement.owner_id != user_id:
             raise Exception
     except Exception:
-        return jsonify({'message': "Advertisement not found"}, 404)
+        return jsonify({'message': "Advertisement not found"}), 404
 
     return AdvertisementSchema().dump(advertisement)
 
@@ -83,12 +83,12 @@ def update_advertisement(pk):
         if advertisement.owner_id != user_id:
             raise Exception
     except Exception:
-        return jsonify({'message': "Advertisement not found"}, 404)
+        return jsonify({'message': "Advertisement not found"}), 404
 
     session.query(Advertisement).filter(Advertisement.id == pk).update(data)
     session.commit()
 
-    return jsonify({'message': "Success"}, 200)
+    return jsonify({'message': "Success"}), 200
 
 
 @app.route("/advertisement/<int:pk>", methods=['DELETE'])
@@ -107,11 +107,11 @@ def delete_advertisement(pk):
         if advertisement.owner_id != user_id:
             raise Exception
     except Exception:
-        return jsonify({'message': "Advertisement not found"}, 404)
+        return jsonify({'message': "Advertisement not found"}), 404
 
     session.delete(advertisement)
     session.commit()
-    return jsonify({'message': "Success"}, 200)
+    return jsonify({'message': "Success"}), 200
 
 
 # board
@@ -146,15 +146,15 @@ def place_add():
     try:
         place = PlaceSchema(partial=True).load(data, unknown=EXCLUDE)
     except Exception:
-        return jsonify({'message': "Invalid input"}, 405)
+        return jsonify({'message': "Invalid input"}), 405
 
     try:
         session.add(place)
         session.commit()
     except Exception:
-        return jsonify({'message': "Commitment to db was fieled"}, 405)
+        return jsonify({'message': "Commitment to db was fieled"}), 405
 
-    return jsonify({'message': "Success"}, 200)
+    return jsonify({'message': "Success"}), 200
 
 
 @app.route("/place/<int:pk>", methods=["GET"])
@@ -162,7 +162,7 @@ def place_get(pk):
     try:
         place = get_or_404(Place, pk)
     except Exception:
-        return jsonify({'message': "Place not found"}, 404)
+        return jsonify({'message': "Place not found"}), 404
 
     return jsonify(PlaceSchema().dump(place))
 
@@ -185,12 +185,12 @@ def place_update(pk):
     try:
         place = get_or_404(Advertisement, pk)
     except Exception:
-        return jsonify({'message': "Advertisement not found"}, 404)
+        return jsonify({'message': "Advertisement not found"}), 404
 
     session.query(Place).filter(Place.id == pk).update(data)
     session.commit()
 
-    return jsonify({'message': "Success"}, 200)
+    return jsonify({'message': "Success"}), 200
 
 
 @app.route("/place/<int:pk>", methods=['DELETE'])
@@ -203,11 +203,11 @@ def place_delete(pk):
     try:
         place = get_or_404(Place, pk)
     except Exception:
-        return jsonify({'message': "PLace not found"}, 404)
+        return jsonify({'message': "Place not found"}), 404
 
     session.delete(place)
     session.commit()
-    return jsonify({'message': "Success"}, 200)
+    return jsonify({'message': "Success"}), 200
 
 
 # user
@@ -222,15 +222,15 @@ def user_add():
         user = UserSchema(partial=True).load(data, unknown=EXCLUDE)
         user.place = get_or_404(Place, int(data['place_id']))
     except Exception:
-        return jsonify({'message': "Invalid input"}, 405)
+        return jsonify({'message': "Invalid input"}), 405
 
     try:
         session.add(user)
         session.commit()
     except Exception:
-        return jsonify({'message': "Commitment to db was fieled"}, 405)
+        return jsonify({'message': "Commitment to db was fieled"}), 405
 
-    return jsonify({'message': "Success"}, 200)
+    return jsonify({'message': "Success"}), 200
 
 
 @app.route("/user/login", methods=["POST"])
@@ -240,19 +240,19 @@ def user_login():
         email = data['email']
         password = str(data['password'])
     except Exception:
-        return jsonify({'message': "Invalid input"}, 405)
+        return jsonify({'message': "Invalid input"}), 405
 
     user = session.query(User).filter(User.email == email).first()
     login_success = bcrypt.check_password_hash(user.password, password)
     if login_success:
         return jsonify({'username': email, 'password': password}), 200
-    return jsonify({'message': 'Bad login!'}, 400)
+    return jsonify({'message': 'Bad login!'}), 400
 
 
 @app.route("/user/logout", methods=["GET"])
 @auth.login_required()
 def user_logout():
-    return jsonify({'message': "Success"}, 200)
+    return jsonify({'message': "Success"}), 200
 
 
 @app.route("/user/", methods=['GET'])
@@ -264,12 +264,12 @@ def get_user():
     try:
         pk = int(pk)
     except ValueError:
-        return jsonify({'message': "Invalid ID supplied"}, 400)
+        return jsonify({'message': "Invalid ID supplied"}), 400
 
     try:
         user = get_or_404(User, pk)
     except Exception:
-        return jsonify({'message': "Advertisement not found"}, 404)
+        return jsonify({'message': "Advertisement not found"}), 404
 
     return UserSchema().dump(user)
 
@@ -295,9 +295,9 @@ def update_user():
         session.commit()
 
     except Exception:
-        return jsonify({'message': "User not found"}, 404)
+        return jsonify({'message': "User not found"}), 404
 
-    return jsonify({'message': "Success"}, 200)
+    return jsonify({'message': "Success"}), 200
 
 
 @app.route("/user/", methods=['DELETE'])
@@ -314,8 +314,8 @@ def delete_user():
     try:
         user = get_or_404(User, pk)
     except Exception:
-        return jsonify({'message': "User not found"}, 404)
+        return jsonify({'message': "User not found"}), 404
 
     session.delete(user)
     session.commit()
-    return jsonify({'message': "Success"}, 200)
+    return jsonify({'message': "Success"}), 200
