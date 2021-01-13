@@ -92,7 +92,7 @@ class UserSchema(Schema):
     first_name = fields.Str()
     last_name = fields.Str()
     email = fields.Str()
-    password = fields.Str()
+    password = fields.Str(load_only=True)
     phone = fields.Str()
     place_id = Column(Integer, ForeignKey('places.id'))
 
