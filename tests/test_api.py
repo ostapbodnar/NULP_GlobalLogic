@@ -1,9 +1,6 @@
 import unittest
 from base64 import b64encode
-from marshmallow.utils import EXCLUDE
 import json
-from flask_testing import TestCase
-from flask import Flask
 import sys
 
 sys.path = ['', '..'] + sys.path[1:]
@@ -207,8 +204,4 @@ class TestAdvertisement(TestBase):
 
 
 if __name__ == '__main__':
-    unittest.TestLoader.sortTestMethodsUsing = None
     unittest.main()
-
-# advertisement
-# coverage run --omit 'C:\Users\ivan6\AppData\Local\pypoetry/*' -m unittest test_api.py && coverage report -m
