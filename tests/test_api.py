@@ -211,4 +211,4 @@ if __name__ == '__main__':
     unittest.main()
 
 # advertisement
-# coverage run --omit 'C:\Users\ivan6\AppData\Local\pypoetry/*' -m unittest user_test.py && coverage report -m
+# coverage run --omit 'C:\Users\ivan6\AppData\Local\pypoetry/*' -m unittest test_api.py && coverage report -m
