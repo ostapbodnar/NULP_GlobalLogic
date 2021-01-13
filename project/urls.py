@@ -34,13 +34,10 @@ def advertisement_add():
 
         advertisement.owner = get_or_404(User, int(data['owner_id']))
     except Exception:
-        return jsonify({'message': "Invalid ID supplied"}), 400
+        return jsonify({'message': "Invalid owner id"}), 400
 
-    try:
-        session.add(advertisement)
-        session.commit()
-    except Exception:
-        return jsonify({'message': "Commitment to db was fieled"}), 405
+    session.add(advertisement)
+    session.commit()
 
     return jsonify({'message': "Success"}), 200
 
@@ -51,10 +48,7 @@ def get_advertisement(pk):
     email = auth.current_user()
     user = session.query(User).filter(User.email == email).first()
     user_id = user.id
-    try:
-        pk = int(pk)
-    except ValueError:
-        return jsonify({'message': "Invalid ID supplied"}), 400
+    pk = int(pk)
 
     try:
         advertisement = session.query(Advertisement).get(pk)
@@ -73,10 +67,8 @@ def update_advertisement(pk):
     user = session.query(User).filter(User.email == email).first()
     user_id = user.id
     data = request.get_json()
-    try:
-        pk = int(pk)
-    except ValueError:
-        return "Invalid ID supplied", 400
+
+    pk = int(pk)
 
     try:
         advertisement = session.query(Advertisement).get(pk)
@@ -97,10 +89,8 @@ def delete_advertisement(pk):
     email = auth.current_user()
     user = session.query(User).filter(User.email == email).first()
     user_id = user.id
-    try:
-        pk = int(pk)
-    except ValueError:
-        return "Invalid ID supplied", 400
+
+    pk = int(pk)
 
     try:
         advertisement = session.query(Advertisement).get(pk)
@@ -148,11 +138,8 @@ def place_add():
     except Exception:
         return jsonify({'message': "Invalid input"}), 405
 
-    try:
-        session.add(place)
-        session.commit()
-    except Exception:
-        return jsonify({'message': "Commitment to db was fieled"}), 405
+    session.add(place)
+    session.commit()
 
     return jsonify({'message': "Success"}), 200
 
@@ -195,11 +182,7 @@ def place_update(pk):
 
 @app.route("/place/<int:pk>", methods=['DELETE'])
 def place_delete(pk):
-    try:
-        pk = int(pk)
-    except ValueError:
-        return "Invalid ID supplied", 400
-
+    pk = int(pk)
     try:
         place = get_or_404(Place, pk)
     except Exception:
@@ -224,34 +207,9 @@ def user_add():
     except Exception:
         return jsonify({'message': "Invalid input"}), 405
 
-    try:
-        session.add(user)
-        session.commit()
-    except Exception:
-        return jsonify({'message': "Commitment to db was fieled"}), 405
+    session.add(user)
+    session.commit()
 
-    return jsonify({'message': "Success"}), 200
-
-
-@app.route("/user/login", methods=["POST"])
-def user_login():
-    data = request.get_json()
-    try:
-        email = data['email']
-        password = str(data['password'])
-    except Exception:
-        return jsonify({'message': "Invalid input"}), 405
-
-    user = session.query(User).filter(User.email == email).first()
-    login_success = bcrypt.check_password_hash(user.password, password)
-    if login_success:
-        return jsonify({'username': email, 'password': password}), 200
-    return jsonify({'message': 'Bad login!'}), 400
-
-
-@app.route("/user/logout", methods=["GET"])
-@auth.login_required()
-def user_logout():
     return jsonify({'message': "Success"}), 200
 
 
@@ -261,15 +219,8 @@ def get_user():
     email = auth.current_user()
     user = session.query(User).filter(User.email == email).first()
     pk = user.id
-    try:
-        pk = int(pk)
-    except ValueError:
-        return jsonify({'message': "Invalid ID supplied"}), 400
 
-    try:
-        user = get_or_404(User, pk)
-    except Exception:
-        return jsonify({'message': "Advertisement not found"}), 404
+    user = get_or_404(User, pk)
 
     return UserSchema().dump(user)
 
@@ -284,18 +235,10 @@ def update_user():
     if "password" in data:
         data["password"] = bcrypt.generate_password_hash(
             data['password']).decode('utf-8')
-    try:
-        pk = int(pk)
-    except ValueError:
-        return "Invalid ID supplied", 400
 
-    try:
-        session.query(User).filter(
-            User.id == pk).update(data)
-        session.commit()
+    session.query(User).filter(User.id == pk).update(data)
 
-    except Exception:
-        return jsonify({'message': "User not found"}), 404
+    session.commit()
 
     return jsonify({'message': "Success"}), 200
 
@@ -306,15 +249,8 @@ def delete_user():
     email = auth.current_user()
     user = session.query(User).filter(User.email == email).first()
     pk = user.id
-    try:
-        pk = int(pk)
-    except ValueError:
-        return "Invalid ID supplied", 400
 
-    try:
-        user = get_or_404(User, pk)
-    except Exception:
-        return jsonify({'message': "User not found"}), 404
+    user = get_or_404(User, pk)
 
     session.delete(user)
     session.commit()
