@@ -8,9 +8,7 @@ from project import *
 
 
 class TestBase(unittest.TestCase):
-    def create_app(self):
-        app.config['TESTING'] = True
-        return app
+    app.config['TESTING'] = True
 
     tester = app.test_client()
     credentials = b64encode(b"ostap@test.com:password").decode('utf-8')
