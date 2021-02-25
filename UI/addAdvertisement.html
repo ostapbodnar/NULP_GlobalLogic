@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Advertizer</title>
+  <link rel="stylesheet" href="scss/style.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="header_inner_div">
+      <a href="index.html" target="_self" class="logo_link">
+        <p class="name_logo">Advertizer</p>
+      </a>
+      <div class="devider"></div>
+    </div>
+  </header>
+  <main>
+    <div class="inner_main h-100">
+      <p class="page_name my-30">Add advertisement</p>
+      <aside class="sidebar bs-border-box pb-20 pr-20">
+        <div class="w-100 h-100 bs-border-box">
+          <div class="w-100 h-100 bs-border-box bg-grey p-16">
+            <a href="user.html" target="_self" class="link">
+              <h2 class="pl-6">User</h2>
+            </a>
+            <div class="devider_side my-20"></div>
+            <div class="w-100">
+              <a href="index.html" target="_self" class="link">
+                <h4 class="pl-6">Board</h4>
+              </a>
+            </div>
+            <a href="local.html" target="_self" class="link">
+              <h4 class="mt-10 pl-6">Local board</h4>
+            </a>
+            <div class="devider_side my-20"></div>
+            <a href="addAdvertisement.html" target="_self" class="link">
+              <h4 class="pl-6">Add advertisement</h4>
+            </a>
+            <div class="devider_side my-20"></div>
+            <a href="login.html" target="_self" class="link">
+              <h4 class="pl-6">Logout</h4>
+            </a>
+          </div>
+        </div>
+      </aside>
+      <section class="main_content bs-border-box p-30 pt-0">
+        <div class="mb-26 w-100 bs-border-box py-28 px-24 bg-grey">
+
+          <form action="advertisement.html" class="w-100" style="height: 500px;">
+            <h1 class="mb-30 text-center">New advertisement</h1>
+
+            <div class="w-90 float_left">
+              <label for="title" class="">Title</label>
+              <input type="text" name="title" placeholder="user_name" class="w-100 p-10 bs-border-box mt-13 mb-20" />
+            </div>
+            <div class="w-90 float_left">
+              <label for="description" class="">Description</label>
+              <textarea name="description" placeholder="Some text"
+                class="w-100 p-10 bs-border-box mt-13 mb-20"></textarea>
+            </div>
+            <div class="w-90 float_left">
+              <label for="quantity" class="">Quantity</label>
+              <input type="number" name="quantity" placeholder="Smith" class="w-100 p-10 bs-border-box mt-13 mb-20" />
+            </div>
+            <div class="w-90 float_left">
+              <label for="location" class="">Location</label>
+              <input type="text" name="location" placeholder="user_name" class="w-100 p-10 bs-border-box mt-13 mb-20" />
+            </div>
+
+            <div class="w-100 login_button mt-20 bottom-0">
+              <button type="submit" href="user.html" class="button_style w-100">
+                Add
+              </button>
+          </form>
+        </div>
+
+      </section>
+    </div>
+  </main>
+  <footer></footer>
+</body>
+
+</html>
