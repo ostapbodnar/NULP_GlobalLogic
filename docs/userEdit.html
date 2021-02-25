@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advertizer</title>
+    <link rel="stylesheet" href="scss/style.css" />
+</head>
+
+<body>
+    <header class="header">
+        <div class="header_inner_div">
+            <a href="index.html" target="_self" class="logo_link">
+                <p class="name_logo">Advertizer</p>
+            </a>
+            <div class="devider"></div>
+        </div>
+    </header>
+    <main>
+        <div class="inner_main h-100">
+            <p class="page_name my-30">User editing</p>
+            <aside class="sidebar bs-border-box pb-20 pr-20">
+                <div class="w-100 h-100 bs-border-box">
+                    <div class="w-100 h-100 bs-border-box bg-grey p-16">
+                        <a href="user.html" target="_self" class="link">
+                            <h2 class="pl-6">User</h2>
+                        </a>
+                        <div class="devider_side my-20"></div>
+                        <div class="w-100">
+                            <a href="index.html" target="_self" class="link">
+                                <h4 class="pl-6">Board</h4>
+                            </a>
+                        </div>
+                        <a href="local.html" target="_self" class="link">
+                            <h4 class="mt-10 pl-6">Local board</h4>
+                        </a>
+                        <div class="devider_side my-20"></div>
+                        <a href="addAdvertisement.html" target="_self" class="link">
+                            <h4 class="pl-6">Add advertisement</h4>
+                        </a>
+                        <div class="devider_side my-20"></div>
+                        <a href="login.html" target="_self" class="link">
+                            <h4 class="pl-6">Logout</h4>
+                        </a>
+                    </div>
+                </div>
+            </aside>
+            <section class="main_content bs-border-box p-30 pt-0">
+                <div class="mb-26 w-100 h-100 bs-border-box py-28 px-24 bg-grey">
+
+
+                    <form action="user.html" class="w-100" style="height: 500px">
+                        <h1 class="mb-30 text-center">Edit User</h1>
+                        <div class="w-40 float_left">
+                            <label for="email" class="">Email</label>
+                            <input type="email" name="email" placeholder="example@email.com"
+                                class="w-100 p-10 bs-border-box mt-13 mb-20" />
+                        </div>
+                        <div class="w-40 float_left">
+                            <label for="username" class="">Username</label>
+                            <input type="text" name="username" placeholder="user_name"
+                                class="w-100 p-10 bs-border-box mt-13 mb-20" />
+                        </div>
+                        <div class="w-40 float_left">
+                            <label for="first_name" class="">First name</label>
+                            <input type="text" name="first_name" placeholder="John"
+                                class="w-100 p-10 bs-border-box mt-13 mb-20" />
+                        </div>
+                        <div class="w-40 float_left">
+                            <label for="last_name" class="">Last name</label>
+                            <input type="text" name="last_name" placeholder="Smith"
+                                class="w-100 p-10 bs-border-box mt-13 mb-20" />
+                        </div>
+                        <div class="w-40 float_left">
+                            <label for="phone" class="">Phone number</label>
+                            <input type="tel" name="phone" placeholder="Smith"
+                                class="w-100 p-10 bs-border-box mt-13 mb-20" />
+                        </div>
+                        <div class="w-40 float_left">
+                            <label for="city" class="">City</label>
+                            <input type="text" name="city" placeholder="Smith"
+                                class="w-100 p-10 bs-border-box mt-13 mb-20" />
+                        </div>
+                        <div class="w-100 login_button mt-50 bottom-0">
+                            <button type="submit" href="user.html" class="button_style w-100">
+                                Save
+                            </button>
+                            <div class="w-100 login_button mt-25">
+                                <button type="cancel" href="User.html" class="button_style w-100">
+                                    Cancel
+                                </button>
+                            </div>
+                    </form>
+                </div>
+
+            </section>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+
+</html>
